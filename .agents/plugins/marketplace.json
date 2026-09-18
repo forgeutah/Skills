@@ -1,0 +1,20 @@
+{
+  "name": "community-skills",
+  "interface": {
+    "displayName": "Community Skills"
+  },
+  "plugins": [
+    {
+      "name": "community-skills",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/ForgeUtah/Skills.git"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

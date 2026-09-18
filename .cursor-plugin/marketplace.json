@@ -1,0 +1,13 @@
+{
+  "name": "community-skills",
+  "owner": {
+    "name": "Community Skills Contributors"
+  },
+  "plugins": [
+    {
+      "name": "community-skills",
+      "source": "./",
+      "description": "Community-contributed Agent Skills across categories: DevOps, design, databases, tools, and general skills."
+    }
+  ]
+}
