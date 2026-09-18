@@ -1,0 +1,8 @@
+{
+  "name": "community-skills",
+  "description": "Community-contributed Agent Skills across categories: DevOps, design, databases, tools, and general skills.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Community Skills Contributors"
+  }
+}

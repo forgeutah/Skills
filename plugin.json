@@ -1,0 +1,21 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "community-skills",
+  "version": "0.1.0",
+  "description": "Community-contributed Agent Skills across categories: DevOps, design, databases, tools, and general skills. Skills are portable across Claude Code, Cursor, opencode, Pi, and Codex.",
+  "author": {
+    "name": "Community Skills Contributors"
+  },
+  "homepage": "https://github.com/ForgeUtah/Skills",
+  "repository": "https://github.com/ForgeUtah/Skills",
+  "license": "MIT",
+  "keywords": [
+    "community-skills",
+    "devops",
+    "design",
+    "database",
+    "tools",
+    "agents",
+    "skills"
+  ]
+}

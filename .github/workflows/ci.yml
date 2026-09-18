@@ -1,0 +1,37 @@
+name: CI
+on:
+  pull_request: {}
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: ci-${{ github.event_name }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify-skills-repo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Lint skill frontmatter and required sections
+        run: node scripts/verify-skills.mjs
+      - name: Validate plugin manifests against their schema shape
+        run: node scripts/verify-manifests.mjs
+      - name: Validate portable skill eval fixtures
+        run: node scripts/verify-evals.mjs
+      - name: Fail on internal markdown links to missing files
+        run: node scripts/check-internal-links.mjs
+      - name: Lint markdown files
+        run: npx --yes markdownlint-cli2 --config .markdownlint.jsonc "**/*.md" "!node_modules"
+      - name: Lint JavaScript scripts
+        run: npx oxlint@latest scripts/
