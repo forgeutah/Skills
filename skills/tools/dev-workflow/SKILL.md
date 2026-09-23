@@ -31,7 +31,7 @@ The loop answers each of those with one mechanism:
 | "PROJ-123 merged" / "close PROJ-123" | Close |
 
 `PROJ-123` stands for whatever key format the team's tracker uses (Jira, Linear,
-GitHub Issues, and so on). Use the tracker tool the agent actually has — a connector,
+GitHub Issues, and so on). Use the tracker tool the agent actually has — an integration,
 or a CLI such as `gh issue view`. Read the ticket through that tool rather than asking
 the user to paste it; pasted tickets lose comments and linked issues.
 
@@ -197,7 +197,7 @@ No approval gate here. The third point becomes the work-log learning entry.
 ## Step 7 — Raise the PR
 
 Push the branch and open the PR with whatever the agent has for the host (for
-example `gh pr create`, or the host's connector). Put the criteria table first,
+example `gh pr create`, or the host's integration). Put the criteria table first,
 because it is what a reviewer reads first:
 
 ```markdown
@@ -276,7 +276,7 @@ When the user says the PR merged:
 
 1. Show the `## Decisions` lines and ask which, if any, should outlive the ticket.
 2. Move kept decisions to wherever the project keeps durable notes — its agent
-   instructions file (`AGENTS.md`, `CLAUDE.md`, or equivalent) or its docs.
+   instructions file (`AGENTS.md` or whichever file the agent reads) or its docs.
 3. Only then delete the task file.
 
 Never delete it without showing the decisions first; once it is gone the reasoning
