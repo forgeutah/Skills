@@ -18,6 +18,12 @@ Skills are organized by category:
 | Databases | [`skills/db/`](skills/db/) | SQL, NoSQL, data modeling, migrations |
 | Tools | [`skills/tools/`](skills/tools/) | General-purpose development tools and utilities |
 
+## Available skills
+
+| Skill | Category | What it does |
+|-------|----------|--------------|
+| [`dev-workflow`](skills/tools/dev-workflow/SKILL.md) | Tools | Ticket-to-PR loop: approved plan, test-proven subtasks, resumable task file, criteria-mapped PR description |
+
 ## Installing
 
 ### Copyable setup prompt
