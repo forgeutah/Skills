@@ -1,0 +1,38 @@
+{
+  "skill_name": "contribute-via-gh-cli",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to submit a fix to ForgeUtah/Skills but `git push` gave me a permission denied error. How do I actually get my change in?",
+      "expected_output": "Explains that push access isn't granted to outside contributors and this is expected/normal, then walks through: gh repo fork --clone --remote, creating a branch, committing, git push -u origin <branch>, and gh pr create --fill --base main.",
+      "expectations": [
+        "States that lacking push access is the normal/expected state, not an error to work around",
+        "Does not suggest disabling branch protection or requesting collaborator access as the solution",
+        "Includes the exact command 'gh repo fork' with --clone and --remote",
+        "Includes pushing to the 'origin' remote (the fork), not attempting to push to upstream",
+        "Includes 'gh pr create' with --base main"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I already have ForgeUtah/Skills cloned locally and have write access to nothing. Walk me through forking it and opening a PR for a new skill I just wrote, using gh.",
+      "expected_output": "Since a clone already exists, runs `gh repo fork --remote` (no arguments) from inside it rather than cloning fresh, explains this renames the existing origin to upstream and sets the fork as origin, then branches, commits, pushes to origin, and runs gh pr create.",
+      "expectations": [
+        "Recommends 'gh repo fork --remote' with no repository argument, not a fresh clone, since a local clone already exists",
+        "Explains that origin becomes the fork and the prior origin becomes upstream",
+        "Includes creating a feature branch before committing",
+        "Includes 'gh pr create' to open the pull request"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "My PR to a forked repo got review comments. How do I check its status and push more changes with gh?",
+      "expected_output": "Explains you don't need to re-run gh pr create; just commit and git push on the same branch to update the existing PR, and shows gh pr status / gh pr view / gh pr checks for tracking status.",
+      "expectations": [
+        "States that pushing more commits to the same branch updates the existing PR automatically",
+        "Does not instruct re-running 'gh pr create' for the follow-up commits",
+        "Mentions at least one status-checking command such as 'gh pr status', 'gh pr view', or 'gh pr checks'"
+      ]
+    }
+  ]
+}

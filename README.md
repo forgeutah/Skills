@@ -18,6 +18,12 @@ Skills are organized by category:
 | Databases | [`skills/db/`](skills/db/) | SQL, NoSQL, data modeling, migrations |
 | Tools | [`skills/tools/`](skills/tools/) | General-purpose development tools and utilities |
 
+## Available skills
+
+| Skill | Category | What it does |
+|-------|----------|---------------|
+| [`contribute-via-gh-cli`](skills/skills/contribute-via-gh-cli/) | Skills | Fork a repo and open a pull request entirely with `gh`, for repos where you don't have push access. |
+
 ## Installing
 
 ### Copyable setup prompt
