@@ -1,0 +1,29 @@
+{
+  "skill_name": "dev-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Pick up PROJ-42. The ticket says: add rate limiting to the login endpoint. Acceptance criteria: 1) more than 5 failed attempts per minute from one IP returns HTTP 429, 2) the limit is configurable through an environment variable, 3) successful logins reset the counter.",
+      "expected_output": "A plan in the skill's format with a branch name, 2-6 subtasks each carrying a covers: line and a test: command, the Registration / Config keys / Deploy order lines, and an explicit stop asking for approval. No files are edited and no branch is created before approval.",
+      "files": [],
+      "expectations": [
+        "The response contains a numbered subtask list where every subtask has a test: line naming a command",
+        "Acceptance criteria 1, 2 and 3 each appear in at least one subtask's covers: line",
+        "The Config keys line names the new environment variable for the limit",
+        "The response ends by asking for approval and does not edit files, create a branch, or write a task file"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Resume PROJ-42. The task file .agents/tasks/PROJ-42.md shows subtasks 1 and 2 as [x], subtask 3 as [>], and Next says: run npm test -- login.rate.test.js and fix the failing reset case.",
+      "expected_output": "The agent checks the task file against the repo (current branch, uncommitted changes, recent commits) before trusting it, reports progress in the Done / Current / Next shape with the Next line verbatim, and then continues from that Next line.",
+      "files": [],
+      "expectations": [
+        "The response checks the current branch, git status, and recent commits before continuing",
+        "The response reports progress with Done, Current and Next lines",
+        "The Next line is quoted verbatim from the task file",
+        "If the repo state disagrees with the task file, the response says so and asks before continuing instead of proceeding"
+      ]
+    }
+  ]
+}
