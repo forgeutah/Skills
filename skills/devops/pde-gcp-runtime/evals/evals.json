@@ -1,0 +1,59 @@
+{
+  "skill_name": "pde-gcp-runtime",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Install the PDE GCP runtime in an org called 'acme-corp' and workspace 'staging'. Run the full installation flow using the kei CLI, deploy kei-connector-runtime as a sidecar on Cloud Run, send a heartbeat, invoke wiki_search through the runtime, and verify redacted audit delivery.",
+      "expected_output": "The harness must register the org and workspace, create the runtime installation with --dry-run then without, mint a single installation-scoped credential stored via Secret Manager, bootstrap the default-tool policy bundle, configure Cloud Run with KEI_RUNTIME_TOKEN from secretKeyRef, start kei-connector-runtime, send a heartbeat confirmed by the control plane, invoke wiki_search through the runtime tool endpoint, and verify that the audit record has all credential fields redacted.",
+      "expectations": [
+        "Uses kei CLI for control-plane operations (orgs create, workspaces create, installations create)",
+        "Creates installation with --dry-run before mutating",
+        "Stores credential in Secret Manager, never in a file or flag",
+        "Deploys kei-connector-runtime as sidecar with KEI_RUNTIME_TOKEN from secretKeyRef",
+        "Runs kei-connector-runtime as a separate binary from kei",
+        "Sends heartbeat and confirms receipt via installations status --show-heartbeat",
+        "Invokes wiki_search through the runtime tool endpoint",
+        "Verifies audit redaction via kei audits list --output json with jq deletion of credential fields"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Validate all negative checks for the PDE GCP runtime installation in workspace 'production': missing workspace, missing policy, stale/revoked installation, unknown tool, and credential-bearing heartbeat.",
+      "expected_output": "Each negative check must produce the expected error. The missing workspace check fails with 'workspace not found'. The missing policy check fails with 'no matching policy'. The stale installation reports credential_valid: false and heartbeat returns rows_affected = 0. The unknown tool fails with 'unknown tool'. The credential-bearing heartbeat audit must contain zero matches for the credential pattern.",
+      "expectations": [
+        "Missing workspace check uses --dry-run and expects 'workspace not found' error",
+        "Missing policy check uses --dry-run with a tool not in the baseline bundle and expects 'no matching policy' error",
+        "Stale/revoked installation check expects credential_valid: false and heartbeat exit code 1 with rows_affected = 0",
+        "Unknown tool check uses --dry-run and expects 'unknown tool' error",
+        "Credential-bearing heartbeat check uses grep to confirm no credential patterns appear in audit records",
+        "Every negative check is executed against a non-production environment first"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Run the local validation suite for the PDE GCP runtime installation: dry-run installation creation, dry-run policy bootstrap, validate runtime config, dry-run tool invocation, and verify audit redaction locally. Do not deploy to GCP or run Terraform.",
+      "expected_output": "All five local validation steps complete without deploying to GCP. Dry-run installation creation succeeds, dry-run policy bootstrap succeeds, kei-connector-runtime validate-config confirms the local environment variables are correct, dry-run tool invocation succeeds, and audit verify-redaction passes on a sample audit record.",
+      "expectations": [
+        "Uses kei installations create --dry-run without deploying",
+        "Uses kei installations bootstrap-policies --dry-run without mutating",
+        "Runs kei-connector-runtime validate-config with local env vars",
+        "Uses kei installations invoke-tool --dry-run for tool invocation check",
+        "Runs kei-connector-runtime audit verify-redaction on a local file",
+        "Does not call gcloud, terraform, or any provider",
+        "Binary names kei and kei-connector-runtime remain explicitly distinct"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Distinguish the kei CLI from the kei-connector-runtime binary in the PDE GCP runtime installation. Explain which to use for control-plane credential minting, which for provider execution, and how to configure Cloud Run without embedding credentials.",
+      "expected_output": "kei is the administrator CLI for control-plane operations (org/workspace/installation creation, credential minting, policy bootstrap, dry-run, audit listing). kei-connector-runtime is the tenant-side daemon for provider execution, heartbeat, tool routing, and audit delivery. Cloud Run is configured with KEI_RUNTIME_TOKEN from a Secret Manager secretKeyRef, never as an inline env value or CLI flag.",
+      "expectations": [
+        "Clearly distinguishes kei as control-plane CLI from kei-connector-runtime as tenant daemon",
+        "Assigns credential minting, org/workspace CRUD, policy bootstrap to kei",
+        "Assigns provider execution, heartbeat, tool routing, audit delivery to kei-connector-runtime",
+        "Configures Cloud Run with KEI_RUNTIME_TOKEN via secretKeyRef, never inline",
+        "Notes that kei-connector-runtime reads token from KEI_RUNTIME_TOKEN env var at startup"
+      ]
+    }
+  ]
+}
