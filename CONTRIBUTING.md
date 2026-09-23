@@ -2,6 +2,38 @@
 
 Thank you for contributing a skill to the community repo!
 
+## Fork first — this is the normal flow
+
+Nobody pushes branches directly to this repository, maintainers included.
+`main` is protected, and the only way in is a fork plus a pull request. This
+isn't a special hoop for outside contributors to jump through — it's how
+every change lands here.
+
+```bash
+gh repo fork ForgeUtah/Skills --clone --remote
+cd Skills
+git checkout -b my-skill-name
+# make your changes
+git add <files>
+git commit -m "add my-skill-name"
+git push -u origin my-skill-name
+gh pr create --fill --base main
+```
+
+`gh repo fork` clones the fork, sets it as your `origin` remote, and adds the
+original repo as `upstream`. For a full walkthrough — including checking PR
+status and pushing follow-up commits after review — see the
+[`contribute-via-gh-cli`](skills/skills/contribute-via-gh-cli/) skill.
+
+### PR title and description
+
+Prefix the PR title with the type of change: `feat:`, `fix:`, `docs:`,
+`cicd:`, `chore:`, `refactor:`, or `test:`. The description follows the
+template in `.github/PULL_REQUEST_TEMPLATE.md`: a short **Description**, an
+**Implementation** section explaining what changed and why, and a
+**Testing** section showing how you verified it (for a skill change, the
+output of the verification suite below).
+
 ## Ground rules
 
 - **Skills document existing behavior.** If a skill names a command, endpoint,
