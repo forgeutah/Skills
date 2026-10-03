@@ -11,3 +11,4 @@ child directory within a category is one distributable skill with a required
 | Design | [`design/`](design/) | UI/UX, design systems, frontend architecture |
 | Databases | [`db/`](db/) | SQL, NoSQL, data modeling, migrations |
 | Tools | [`tools/`](tools/) | General-purpose development tools and utilities |
+| Marketing | [`marketing/`](marketing/) | Go-to-market strategy, growth tactics, SEO/AEO, launch deliverables |

@@ -17,6 +17,7 @@ Skills are organized by category:
 | Design | [`skills/design/`](skills/design/) | UI/UX, design systems, frontend architecture |
 | Databases | [`skills/db/`](skills/db/) | SQL, NoSQL, data modeling, migrations |
 | Tools | [`skills/tools/`](skills/tools/) | General-purpose development tools and utilities |
+| Marketing | [`skills/marketing/`](skills/marketing/) | Go-to-market strategy, growth tactics, SEO/AEO, launch deliverables |
 
 ## Installing
 
