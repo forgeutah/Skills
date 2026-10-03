@@ -1,0 +1,35 @@
+{
+  "skill_name": "kei-harness-setup",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "set up kei for me in opencode. my opencode config lives in ~/dotfiles/opencode and I already have some skills there i don't want clobbered",
+      "expected_output": "Clones HaikeiLabs/skills, links skill folders into the OpenCode skills dir without overwriting existing ones, verifies discovery, then pairs with a runtime (kei login first) and checks a denial.",
+      "expectations": [
+        "The response installs from https://github.com/HaikeiLabs/skills, not another skills repository.",
+        "The response skips or asks about same-named existing skills instead of overwriting them.",
+        "The response includes a way to verify OpenCode discovered the skills.",
+        "The response routes the runtime half through kei login and runtime setup rather than skipping auth."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We use Claude Code and Codex on the team. How do we get the Haikei skills into both and make sure tool calls actually go through Kei?",
+      "expected_output": "Gives the plugin marketplace commands for both, explains skills do not grant permission, and wires kei-proxy authorize with agent identity and a denial test.",
+      "expectations": [
+        "The response gives the Claude Code and Codex plugin marketplace commands for HaikeiLabs/skills.",
+        "The response states installing skills does not by itself allow tool calls; policy decides.",
+        "The response includes a deny check where an unbound call must fail."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Can I hook up Windsurf to Kei the same way?",
+      "expected_output": "Says Windsurf is not a supported harness; unsupported harnesses are denied until an adapter is registered.",
+      "expectations": [
+        "The response does not claim Windsurf is supported.",
+        "The response lists the supported local adapters."
+      ]
+    }
+  ]
+}

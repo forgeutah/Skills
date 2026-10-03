@@ -1,0 +1,45 @@
+{
+  "skill_name": "kei-openai-backends",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My model is DeepSeek-based and the agent's tool calls are coming back as JSON arrays but my downstream parser expects XML. Is this a known difference?",
+      "expected_output": "Explains that DeepSeek uses the generic JSON function-array format (like OpenAI/GLM), not XML. Only Qwen and Anthropic use XML envelopes for tool calls.",
+      "expectations": [
+        "The response categorizes DeepSeek with OpenAI/GLM as JSON array format.",
+        "The response identifies Qwen and Anthropic as XML-envelope families.",
+        "The response references the model-format-reference.md or Agentware formatters."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I see inline <thinking> tags in my model output but they contain sensitive reasoning I don't want to show end users. How are thinking tags handled across model families?",
+      "expected_output": "Explains that Qwen uses <thinking>...</thinking> and DeepSeek uses [THINK]...[/THINK] tags stripped by the reasoning adapter; Anthropic uses a structured thinking content block; OpenAI and GLM use reason_content without inline tags.",
+      "expectations": [
+        "The response correctly distinguishes inline tags (Qwen, DeepSeek) from structured blocks (Anthropic).",
+        "The response mentions the reasoning adapter and guardrails response validator as stripping layers.",
+        "The response does not claim a per-family stripping strategy that differs from the verified implementation."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I want to add support for a new model family, say Mistral. What actually needs to change?",
+      "expected_output": "Explains that a new ToolFormatter, response parser, and reasoning adapter would be needed in Agentware's toolformat/ package; the chat harness's render_tools() in tool_definitions.py would need a new ModelFormat variant. Directs to open a design discussion.",
+      "expectations": [
+        "The response mentions the ToolFormatter interface in Agentware as the primary integration point.",
+        "The response does not provide implementation steps or pseudo-code for the unvetted family.",
+        "The response directs to open a design review before coding."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Does the chat harness support Anthropic models natively? What about Qwen?",
+      "expected_output": "Explains that the chat harness's tool_definitions.py renderer supports OpenAI, Anthropic, and Ollama formats; the full five-family formatter support (including Qwen and DeepSeek) lives in Agentware SDK. The harness can use any family behind an OpenAI-compatible /v1 endpoint.",
+      "expectations": [
+        "The response distinguishes between the harness's built-in renderers (3 formats) and Agentware's full set (5 families).",
+        "The response clarifies that any model behind a /v1 endpoint is usable regardless of format.",
+        "The response links to the model-format-reference.md for the full table."
+      ]
+    }
+  ]
+}

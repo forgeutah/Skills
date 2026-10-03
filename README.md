@@ -18,6 +18,13 @@ Skills are organized by category:
 | Databases | [`skills/db/`](skills/db/) | SQL, NoSQL, data modeling, migrations |
 | Tools | [`skills/tools/`](skills/tools/) | General-purpose development tools and utilities |
 
+## Skills in this repo
+
+| Skill | Category | Description |
+|-------|----------|-------------|
+| [`kei-openai-backends`](skills/tools/kei-openai-backends/) | Tools | OpenAI-compatible LLM backend integration, model format support for five model families, and eval harness backends |
+| [`kei-harness-setup`](skills/tools/kei-harness-setup/) | Tools | Connect coding-agent harnesses (Claude Code, Codex, OpenCode, Pi, Cursor) to Kei governance |
+
 ## Installing
 
 ### Copyable setup prompt
